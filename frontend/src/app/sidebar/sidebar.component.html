@@ -1,0 +1,41 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="example-app-name">Mapa</h1>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+        <mat-expansion-panel *ngFor="let message of messages; let i = index"
+                             (opened)="selectMeasurement(parseMeasurements(message.body))"
+                             (closed)="clearMarkers()">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Mjere {{ i + 1 }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <!-- Coordinates List -->
+          <div *ngFor="let coord of parseMeasurements(message.body)">
+            Lat: {{ coord.lat }}, Lng: {{ coord.lng }}
+          </div>
+
+          <div style="margin-top: 15px;"></div>
+
+          <p>Ukupna distanca: {{ calculateDistance(parseMeasurements(message.body)) | number:'1.2-2' }} m</p>
+
+          <!-- Delete Button -->
+          <button mat-button color="warn" (click)="deleteMeasurement(i)">Delete</button>
+
+        </mat-expansion-panel>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <ng-content></ng-content>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

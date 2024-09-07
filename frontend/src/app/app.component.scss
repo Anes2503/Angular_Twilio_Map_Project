@@ -1,0 +1,4 @@
+.content {
+  padding-top: 64px;  // Offset for fixed navbar
+  height: calc(100vh - 64px);  // Content height to leave space for the navbar
+}

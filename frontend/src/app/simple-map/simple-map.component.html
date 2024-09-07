@@ -1,0 +1,6 @@
+<app-sidebar [messages]="messages"
+             (onSelectMeasurement)="selectMeasurement($event)"
+             (onClearMarkers)="clearMarkersAndLines()"
+             (onDeleteMeasurement)="deleteMeasurement($event)">
+  <div id="map" class="map-container"></div>
+</app-sidebar>
